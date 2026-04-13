@@ -1,0 +1,17 @@
+# Compiled files
+*.class
+target/
+
+# Eclipse files
+.project
+.classpath
+.settings/
+*.prefs
+
+# IDE files
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
