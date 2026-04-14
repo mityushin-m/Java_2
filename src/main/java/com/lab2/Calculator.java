@@ -80,8 +80,8 @@ public class Calculator {
             if (op == '*') left *= right;
             else {
             	if (Math.abs(right) < 1e-12) throw new RuntimeException("Ошибка: деление на ноль");
+            	left /= right;
             }
-            left /= right;
         }
         return left;
     }
