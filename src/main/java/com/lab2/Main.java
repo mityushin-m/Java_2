@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите арифметическое выражение (числа, переменные, + - * /, скобки, а так же функции sin(x) и cos(x)):");
+        System.out.println("Введите арифметическое выражение (числа, переменные, + - * /, скобки, а так же функции sin(x), cos(x), tan(x),  cot(x), sqrt(x)):");
         String input = scanner.nextLine();
 
         try {

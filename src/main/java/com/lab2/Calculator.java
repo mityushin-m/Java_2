@@ -108,6 +108,12 @@ public class Calculator {
         switch (name) {
             case "sin": return Math.sin(arg);
             case "cos": return Math.cos(arg);
+            case "tan": return Math.tan(arg);
+            case "cot": 
+                double sin = 1;
+                if (Math.abs(sin) > 1e-12) sin = Math.sin(arg);
+                return Math.cos(arg) / sin;
+            case "sqrt": return Math.sqrt(arg);
             default: return 0;
         }
     }
