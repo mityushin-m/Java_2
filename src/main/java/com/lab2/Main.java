@@ -13,7 +13,7 @@ public class Main {
             double result = calc.evaluate();
             System.out.println("Результат: " + result);
         } catch (Exception e) {
-            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }
