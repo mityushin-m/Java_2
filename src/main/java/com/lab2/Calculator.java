@@ -1,15 +1,20 @@
 package com.lab2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Calculator {
     private String expr;
     private int pos;
     private char ch;
+    private Map<String, Double> variables;
 
     public Calculator(String expr) {
         this.expr = expr.replaceAll("\\s+", "");
         this.pos = 0;
         if (this.expr.length() > 0) this.ch = this.expr.charAt(0);
         else this.ch = '\0';
+        this.variables = new HashMap<>();
     }
 
     public double evaluate()  {
@@ -47,12 +52,15 @@ public class Calculator {
             nextChar();
             return val;
         }
-        else if (ch == '-') {
+        if (ch == '-') {
             nextChar();
             return -parseFactor();
         }
-        else if(Character.isDigit(ch)) {
+        if(Character.isDigit(ch)) {
             return parseNumber();
+        }
+        if (Character.isLetter(ch)) {
+            return parseVariable();
         }
         return 0;
     }
@@ -66,6 +74,22 @@ public class Calculator {
         
         return Double.parseDouble(sb.toString());
         
+    }
+    
+    private double parseVariable() {
+        StringBuilder sb = new StringBuilder();
+        while (pos < expr.length() && Character.isLetter(ch)) {
+            sb.append(ch);
+            nextChar();
+        }
+        String varName = sb.toString();
+        if (!variables.containsKey(varName)) {
+            System.out.print("Введите значение переменной " + varName + ": ");
+            java.util.Scanner sc = new java.util.Scanner(System.in);
+            double val = sc.nextDouble();
+            variables.put(varName, val);
+        }
+        return variables.get(varName);
     }
 
     private void nextChar() {
