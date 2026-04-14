@@ -44,6 +44,15 @@ public class Calculator {
         }
         return left;
     }
+    
+    private String parseIdentifier() {
+        StringBuilder sb = new StringBuilder();
+        while (pos < expr.length() && Character.isLetter(ch)) {
+            sb.append(ch);
+            nextChar();
+        }
+        return sb.toString();
+    }
 
     private double parseFactor() {
         if (ch == '(') {
@@ -60,7 +69,11 @@ public class Calculator {
             return parseNumber();
         }
         if (Character.isLetter(ch)) {
-            return parseVariable();
+        	String name = parseIdentifier();
+        	if (ch == '(') {
+                return parseFunction(name);
+                }
+        	else return getVariableValue(name);
         }
         return 0;
     }
@@ -76,13 +89,8 @@ public class Calculator {
         
     }
     
-    private double parseVariable() {
-        StringBuilder sb = new StringBuilder();
-        while (pos < expr.length() && Character.isLetter(ch)) {
-            sb.append(ch);
-            nextChar();
-        }
-        String varName = sb.toString();
+    private double getVariableValue(String varName) {
+        
         if (!variables.containsKey(varName)) {
             System.out.print("Введите значение переменной " + varName + ": ");
             java.util.Scanner sc = new java.util.Scanner(System.in);
@@ -90,6 +98,18 @@ public class Calculator {
             variables.put(varName, val);
         }
         return variables.get(varName);
+    }
+    
+    private double parseFunction(String name) {
+        // предполагаем, что текущий символ - '('
+        nextChar(); // пропускаем '('
+        double arg = parseExpression();
+        nextChar(); // пропускаем ')'
+        switch (name) {
+            case "sin": return Math.sin(arg);
+            case "cos": return Math.cos(arg);
+            default: return 0;
+        }
     }
 
     private void nextChar() {
